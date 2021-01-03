@@ -4,5 +4,5 @@ from ponto_turistico.models import PontoTuristico
 class PontoTuristicoSerializer(ModelSerializer):
     class Meta:
         model = PontoTuristico
-        fields = ('id', 'nome', 'descricao', 'atracoes', 'endereco', 'aprovado')
+        fields = ('id', 'nome', 'descricao', 'atracoes', 'endereco', 'aprovado', 'foto')
         

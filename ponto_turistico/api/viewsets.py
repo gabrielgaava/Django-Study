@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from ponto_turistico.models import PontoTuristico
 from .serializers import PontoTuristicoSerializer
 
@@ -35,3 +36,14 @@ class PontoTuristicoViewSet(ModelViewSet):
 
     # Altera o comportamento do (PATCH)
     # def partial_update(self, request, *args, **kwargs):
+
+    # Actions Personalizadas
+    # Detail retorna a Primary Key (ponto-turistico/id/denunciar)
+    @action(methods=['get'], detail=True)
+    def denunciar(self, request, pk=None):
+        return Response({'message': 'Denuncia feita'})
+
+    # (ponto-turistico/aprovados)
+    @action(methods=['get'], detail=False)
+    def aprovados(self, request):
+        return super(PontoTuristicoViewSet, self).list(self, request)
