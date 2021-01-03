@@ -9,7 +9,18 @@ class PontoTuristicoViewSet(ModelViewSet):
     serializer_class = PontoTuristicoSerializer
 
     def get_queryset(self):
-        return PontoTuristico.objects.all()
+
+        id = self.request.query_params.get('id', None)
+        nome = self.request.query_params.get('nome', None)
+        queryset = PontoTuristico.objects.all()
+
+        if id:
+            queryset = PontoTuristico.objects.filter(pk = id)
+
+        if nome: 
+            queryset = queryset.filter(nome__iexact = nome)
+
+        return queryset
     
     # Altera a Listagem padrão do Rest Framework (GET Geral)
     # def list(self, request, *args, **kwargs):
@@ -21,6 +32,7 @@ class PontoTuristicoViewSet(ModelViewSet):
 
     # Altera o comportamento de destruição (DELETE)    
     def destroy(self, request, *args, **kwargs):
+        super(PontoTuristicoViewSet, self).destroy(self, request, *args, **kwargs)
         return Response(
             {
                 'ponto-deletado': kwargs['pk'],
