@@ -14,6 +14,10 @@ class PontoTuristicoViewSet(ModelViewSet):
         nome = self.request.query_params.get('nome', None)
         queryset = PontoTuristico.objects.all()
 
+        # Modifica a URL seletora, por exemplo:
+        # ../api/ponto-turistico/nome/
+        # lookup_field = 'nome'
+
         if id:
             queryset = PontoTuristico.objects.filter(pk = id)
 
@@ -31,7 +35,7 @@ class PontoTuristicoViewSet(ModelViewSet):
     #    return Response({'message': "Ponto turistico criado"})
 
     # Altera o comportamento de destruição (DELETE)    
-    def destroy(self, request, *args, **kwargs):
+    # def destroy(self, request, *args, **kwargs):
         super(PontoTuristicoViewSet, self).destroy(self, request, *args, **kwargs)
         return Response(
             {
